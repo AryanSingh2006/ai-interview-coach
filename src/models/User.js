@@ -19,8 +19,8 @@ const UserSchema = new mongoose.Schema(
     },
 
     password: {
-      tpye: String,
-      required : [true, "password is required"],
+      type: String,
+      required: [true, "Password is required"],
     }
   },
   {
