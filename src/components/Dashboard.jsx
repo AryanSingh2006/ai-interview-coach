@@ -97,7 +97,7 @@ export default function Dashboard() {
                 }`}
               >
                 <Icon
-                  className={`w-[18px] h-[18px] ${
+                  className={`w-18px h-18px ${
                     isActive ? "text-blue-600" : "text-slate-400"
                   }`}
                   aria-hidden="true"
@@ -153,7 +153,7 @@ export default function Dashboard() {
               <HelpCircle className="w-5 h-5" aria-hidden="true" />
             </button>
             <div
-              className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-slate-700 flex items-center justify-center text-white text-xs font-semibold ring-2 ring-white shadow-sm"
+              className="w-9 h-9 rounded-full bg-linear-to-br from-blue-500 to-slate-700 flex items-center justify-center text-white text-xs font-semibold ring-2 ring-white shadow-sm"
               aria-label="User profile"
             >
               JD
