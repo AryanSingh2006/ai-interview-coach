@@ -24,49 +24,49 @@ InterviewPro is an AI-powered interview preparation platform that generates pers
 
 ## Landing Page
 
-![Landing Page](./landingPage.png)
+![Landing Page](./public/landingPage.png)
 
 ## Interview Setup
 
 Resume upload, job description input, company targeting, and interview generation.
 
-![Interview Setup](./upload.png)
+![Interview Setup](./public/upload.png)
 
 ## Interview Session
 
 Real-time interview interface with question tracking, answer submission, and progress monitoring.
 
-![Interview Session](./question.png)
+![Interview Session](./public/question.png)
 
 ## Dashboard
 
 Centralized overview of interview performance, strengths, weaknesses, and recent reports.
 
-![Dashboard](./dashboard.png)
+![Dashboard](./public/dashboard.png)
 
 ## Profile
 
 Candidate profile with performance metrics, interview history, and skill breakdown.
 
-![Profile](./profile.png)
+![Profile](./public/profile.png)
 
 ## Reports Overview
 
 Interview history with filtering and report access.
 
-![Reports](./report.png)
+![Reports](./public/report.png)
 
 ## Detailed Interview Report
 
 Performance summary, score breakdown, and evaluation metrics.
 
-![Detailed Report](./report2.png)
+![Detailed Report](./public/report2.png)
 
 ## Strengths, Weaknesses & Recommendations
 
 Detailed analysis and personalized improvement roadmap.
 
-![Recommendations](./report3.png)
+![Recommendations](./public/report3.png)
 
 ---
 
