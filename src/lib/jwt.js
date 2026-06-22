@@ -10,7 +10,7 @@ export function generateToken(payload) {
 export function verifyToken(token) {
   try {
     return jwt.verify(token, JWT_SECRET);
-  } catch (error) {
+  } catch {
     return null;
   }
 }

@@ -38,6 +38,13 @@ const EvaluationSchema = new mongoose.Schema(
       unique: true, // One evaluation per turn
     },
 
+    sessionId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "InterviewSession",
+      required: true,
+      index: true,
+    },
+
     // Overall score for this turn (0–10)
     score: {
       type: Number,
@@ -52,11 +59,27 @@ const EvaluationSchema = new mongoose.Schema(
       default: [],
     },
 
+    strengths: {
+      type: [String],
+      default: [],
+    },
+
+    weaknesses: {
+      type: [String],
+      default: [],
+    },
+
+    recommendedFollowUpTopics: {
+      type: [String],
+      default: [],
+    },
+
     // Detailed AI feedback paragraph shown to the candidate
     feedback: {
       type: String,
       default: "",
     },
+
   },
   {
     timestamps: true,

@@ -17,12 +17,23 @@ const InterviewReportSchema = new mongoose.Schema(
       max: [10, "Score cannot exceed 10"],
     },
 
+    dimensionAverages: {
+      type: Map,
+      of: Number,
+      default: {},
+    },
+
     strengths: {
       type: [String],
       default: [],
     },
 
     weaknesses: {
+      type: [String],
+      default: [],
+    },
+
+    recommendedFollowUpTopics: {
       type: [String],
       default: [],
     },
