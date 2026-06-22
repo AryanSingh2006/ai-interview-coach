@@ -20,7 +20,7 @@ export async function POST(request) {
       return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
     }
 
-    const { resumeId, jobDescription, interviewType } = await request.json();
+    const { resumeId, jobDescription, interviewType, targetCompany } = await request.json();
 
     if (!resumeId || !jobDescription || !interviewType) {
       return NextResponse.json(
@@ -72,6 +72,7 @@ export async function POST(request) {
       candidateProfileId: candidateProfile._id,
       jobDescription,
       interviewType,
+      targetCompany: targetCompany?.trim() || "",
       status: "in_progress",
     });
 

@@ -21,7 +21,6 @@ export async function POST(request, { params }) {
     await connectDB();
 
     const user = await getCurrentUser(request);
-    console.log("CURRENT USER:", user);
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -113,6 +112,8 @@ export async function POST(request, { params }) {
       summary: reportResult.summary,
       recommendedFollowUpTopics:
         reportResult.recommendedFollowUpTopics || [],
+      interviewType: session.interviewType,
+      completedAt: session.completedAt || new Date(),
     });
 
     session.status = "completed";

@@ -1,9 +1,10 @@
 "use client";
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 // ============================================================================
-// REUSABLE SUB-COMPONENTS (Data Driven Models)
+// REUSABLE SUB-COMPONENTS
 // ============================================================================
 
 function FeatureBadgeRow() {
@@ -42,10 +43,11 @@ function StepCard({ stepNumber, title, description }) {
 }
 
 // ============================================================================
-// MAIN LANDING CONTAINER CONTEXT ROUTE
+// MAIN LANDING PAGE
 // ============================================================================
 export default function LandingPage() {
-  
+  const router = useRouter();
+
   const steps = [
     { num: "01", title: "Upload Resume", desc: "Our AI analyzes your professional history to tailor specific questions to your background." },
     { num: "02", title: "Choose Type", desc: "Select from technical, behavioral, or executive interview formats for your target role." },
@@ -53,43 +55,53 @@ export default function LandingPage() {
     { num: "04", title: "Get Feedback", desc: "Receive an instant evaluation and a structured learning plan to address your weaknesses." }
   ];
 
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-white text-slate-800 antialiased selection:bg-blue-100">
       
-      {/* 1. Global Navigation Header Header */}
+      {/* 1. Global Navigation Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100/60 transition-all">
         <div className="max-w-6xl mx-auto h-16 px-4 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2 cursor-pointer">
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollTo('hero')}>
             <div className="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center shadow-md shadow-blue-500/20">
               <span className="text-white font-black text-xs">I</span>
             </div>
             <span className="text-base font-black tracking-tight text-slate-900">InterviewPro</span>
           </div>
 
-          {/* Navigation Links */}
+          {/* Navigation Links — smooth scroll */}
           <nav className="hidden md:flex items-center space-x-8 text-xs font-bold text-slate-500 tracking-wide">
-            <span className="hover:text-blue-600 cursor-pointer transition">Features</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">How It Works</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">Pricing</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">About</span>
+            <button onClick={() => scrollTo('features')} className="hover:text-blue-600 transition">Features</button>
+            <button onClick={() => scrollTo('how-it-works')} className="hover:text-blue-600 transition">How It Works</button>
+            <button onClick={() => scrollTo('pricing')} className="hover:text-blue-600 transition">Pricing</button>
+            <button onClick={() => scrollTo('about')} className="hover:text-blue-600 transition">About</button>
           </nav>
 
-          {/* Action Call Controls */}
+          {/* Action Controls */}
           <div className="flex items-center space-x-4">
-            <button className="text-xs font-bold text-slate-600 hover:text-slate-900 transition px-3 py-2">
+            <button
+              onClick={() => router.push('/login')}
+              className="text-xs font-bold text-slate-600 hover:text-slate-900 transition px-3 py-2"
+            >
               Login
             </button>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md shadow-blue-500/10 transition transform active:scale-[0.98]">
+            <button
+              onClick={() => router.push('/signup')}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md shadow-blue-500/10 transition transform active:scale-[0.98]"
+            >
               Get Started
             </button>
           </div>
         </div>
       </header>
 
-      {/* 2. Hero Split Feature Presentation Context Header */}
-      <section className="relative pt-12 pb-20 px-4 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        {/* Left Messaging Node */}
+      {/* 2. Hero */}
+      <section id="hero" className="relative pt-12 pb-20 px-4 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
           <div className="space-y-3">
             <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tighter leading-tight">
@@ -101,13 +113,15 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-            <button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-7 py-4 rounded-xl shadow-lg shadow-blue-500/20 transition transform active:scale-[0.97] uppercase tracking-wide">
+            <button
+              onClick={() => router.push('/signup')}
+              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-7 py-4 rounded-xl shadow-lg shadow-blue-500/20 transition transform active:scale-[0.97] uppercase tracking-wide"
+            >
               Get Started
             </button>
           </div>
         </div>
 
-        {/* Right Preview Framework Column Grid Node */}
         <div className="lg:col-span-5 space-y-3">
           {[
             { label: "Resume Upload", sub: "AI parses your skills", icon: "📄" },
@@ -128,11 +142,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 3. Social Branding Proof Banner Segment */}
+      {/* 3. Social Proof */}
       <FeatureBadgeRow />
 
-      {/* 4. Sequential Flow Processing Metrics Section */}
-      <section className="py-20 px-4 max-w-6xl mx-auto space-y-12">
+      {/* 4. How It Works */}
+      <section id="how-it-works" className="py-20 px-4 max-w-6xl mx-auto space-y-12">
         <div className="text-center space-y-3 max-w-xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
             Seamless from Start to Finish
@@ -149,8 +163,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 5. Feature Bento Layout Architecture Matrix Container */}
-      <section className="py-20 bg-slate-50/50 border-t border-slate-100 px-4">
+      {/* 5. Features Bento */}
+      <section id="features" className="py-20 bg-slate-50/50 border-t border-slate-100 px-4">
         <div className="max-w-6xl mx-auto space-y-12">
           
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
@@ -162,20 +176,13 @@ export default function LandingPage() {
                 Precision Tools for Career Success
               </h2>
             </div>
-            <span className="text-xs font-bold text-blue-600 hover:text-blue-700 cursor-pointer transition flex items-center gap-1 group whitespace-nowrap">
-              View all features <span className="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
-            </span>
           </div>
 
-          {/* Bento Matrix Interface Row Grid Setup Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
             
-            {/* Bento Block 1: Resume Deep Analysis */}
             <div className="lg:col-span-7 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-6">
               <div className="space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm mb-3">
-                  📄
-                </div>
+                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm mb-3">📄</div>
                 <h3 className="text-sm font-extrabold text-slate-800 tracking-tight">Resume Analysis</h3>
                 <p className="text-xs text-slate-400 font-normal leading-relaxed max-w-md">
                   Advanced NLP engine that dissects your resume to identify key skills, achievements, and potential gaps for specific job descriptions.
@@ -189,8 +196,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Bento Block 2: Technical Vector Pinned Content Card */}
-            <div className="lg:col-span-5 bg-blue-600 rounded-2xl p-6 text-white shadow-md flex flex-col justify-between space-y-8 relative overflow-hidden group">
+            <div className="lg:col-span-5 bg-blue-600 rounded-2xl p-6 text-white shadow-md flex flex-col justify-between space-y-8 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl transform translate-x-8 -translate-y-8"></div>
               <div className="text-sm font-bold font-mono text-blue-200/80 tracking-widest">&lt;/&gt;</div>
               <div className="space-y-2 relative z-10">
@@ -201,7 +207,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Bento Block 3: Behavioral Framework Analysis */}
             <div className="lg:col-span-4 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-3">
               <div className="text-sm">💡</div>
               <h4 className="text-xs font-extrabold text-slate-800 tracking-tight">Behavioral Interviews</h4>
@@ -210,7 +215,6 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* Bento Block 4: Dynamic Branch Mapping Core Segment */}
             <div className="lg:col-span-4 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-3">
               <div className="text-sm">🔄</div>
               <h4 className="text-xs font-extrabold text-slate-800 tracking-tight">Dynamic Follow-ups</h4>
@@ -219,7 +223,6 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* Bento Block 5: Multi-Evaluation Metric Core Node */}
             <div className="lg:col-span-4 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-3">
               <div className="text-sm">📈</div>
               <h4 className="text-xs font-extrabold text-slate-800 tracking-tight">Detailed Evaluation</h4>
@@ -228,7 +231,6 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* Bento Block 6: Bottom Action Framework Mapping Layer */}
             <div className="lg:col-span-12 bg-slate-900 text-white rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative shadow-lg">
               <div className="space-y-2 max-w-xl text-center md:text-left">
                 <h3 className="text-sm font-extrabold tracking-tight">Personalized Learning Plans</h3>
@@ -236,13 +238,14 @@ export default function LandingPage() {
                   A dynamic roadmap that automatically populates with curated resources, practice exercises, and targeted reading based on your interview performance.
                 </p>
                 <div className="pt-2">
-                  <button className="bg-white hover:bg-slate-100 text-slate-900 font-bold text-[11px] px-4 py-2.5 rounded-xl transition shadow-sm">
+                  <button
+                    onClick={() => router.push('/signup')}
+                    className="bg-white hover:bg-slate-100 text-slate-900 font-bold text-[11px] px-4 py-2.5 rounded-xl transition shadow-sm"
+                  >
                     Explore Roadmaps
                   </button>
                 </div>
               </div>
-              
-              {/* Map/Vector Background Graphic Shell Representation */}
               <div className="w-full md:w-64 h-32 bg-slate-800 border border-slate-700/60 rounded-xl flex items-center justify-center relative overflow-hidden flex-shrink-0 shadow-inner">
                 <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
                 <span className="text-2xl opacity-20 filter grayscale">🗺️</span>
@@ -253,7 +256,74 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 6. Primary Conversion Target Action Segment Wrapper */}
+      {/* 6. Pricing — Coming Soon */}
+      <section id="pricing" className="py-20 px-4 border-t border-slate-100">
+        <div className="max-w-6xl mx-auto text-center space-y-6">
+          <span className="text-[10px] bg-blue-50 text-blue-600 px-2.5 py-1 rounded-md border border-blue-100 font-bold tracking-wider uppercase inline-block">
+            Pricing
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Simple, Transparent Pricing</h2>
+          <p className="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+            We&apos;re finalising our pricing tiers. Sign up now to get early access and be the first to know when plans launch.
+          </p>
+          <div className="inline-flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-2xl px-8 py-6 shadow-sm">
+            <span className="text-2xl">🚀</span>
+            <div className="text-left">
+              <p className="text-sm font-extrabold text-slate-800">Coming Soon</p>
+              <p className="text-xs text-slate-400 mt-0.5">Early access is free. No credit card required.</p>
+            </div>
+          </div>
+          <div className="pt-2">
+            <button
+              onClick={() => router.push('/signup')}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-md transition"
+            >
+              Get Early Access
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. About */}
+      <section id="about" className="py-20 px-4 bg-slate-50/50 border-t border-slate-100">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-5">
+            <span className="text-[10px] bg-blue-50 text-blue-600 px-2.5 py-1 rounded-md border border-blue-100 font-bold tracking-wider uppercase inline-block">
+              About
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Built for the Modern Job Seeker
+            </h2>
+            <p className="text-sm text-slate-500 leading-relaxed">
+              InterviewPro was created by engineers and hiring managers who experienced first-hand how unprepared most candidates are — not due to lack of ability, but lack of practice.
+            </p>
+            <p className="text-sm text-slate-500 leading-relaxed">
+              Our AI-powered platform gives every candidate access to the same level of preparation that was previously only available through expensive coaching.
+            </p>
+            <button
+              onClick={() => router.push('/signup')}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-md transition"
+            >
+              Start Preparing Today
+            </button>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { stat: "50,000+", label: "Interviews Conducted" },
+              { stat: "94%", label: "User Satisfaction Rate" },
+              { stat: "3x", label: "Faster Interview Prep" },
+              { stat: "200+", label: "Companies Represented" },
+            ].map(({ stat, label }) => (
+              <div key={label} className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm text-center">
+                <p className="text-2xl font-black text-blue-600">{stat}</p>
+                <p className="text-xs text-slate-400 font-medium mt-1">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. CTA Banner */}
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-center px-6 py-12 space-y-6 shadow-xl relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent)]"></div>
@@ -266,14 +336,17 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="pt-2 relative z-10">
-            <button className="bg-white hover:bg-slate-50 text-blue-600 font-black text-xs px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition transform active:scale-[0.98] tracking-wide">
+            <button
+              onClick={() => router.push('/signup')}
+              className="bg-white hover:bg-slate-50 text-blue-600 font-black text-xs px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition transform active:scale-[0.98] tracking-wide"
+            >
               Get Started for Free
             </button>
           </div>
         </div>
       </section>
 
-      {/* 7. Platform Footer */}
+      {/* 9. Footer */}
       <footer className="border-t border-slate-100 bg-white py-8 px-4 text-xs font-semibold text-slate-400">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="space-y-1 text-center sm:text-left">
@@ -282,9 +355,9 @@ export default function LandingPage() {
             <p className="text-[10px] font-normal text-slate-400/80 pt-2">&copy; 2026 InterviewPro SaaS. All rights reserved.</p>
           </div>
           <div className="flex items-center space-x-6 text-[11px] font-bold text-slate-400 tracking-wide">
-            <span className="hover:text-blue-600 cursor-pointer transition">Privacy Policy</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">Terms of Service</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">Contact Us</span>
+            <span>Privacy Policy</span>
+            <span>Terms of Service</span>
+            <span>Contact Us</span>
           </div>
         </div>
       </footer>

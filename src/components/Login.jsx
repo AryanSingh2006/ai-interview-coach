@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const styles = `
   .login-container {
@@ -278,6 +279,7 @@ const styles = `
 `;
 
 const Login = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -286,6 +288,8 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -300,6 +304,7 @@ const Login = () => {
         [name]: "",
       }));
     }
+    if (apiError) setApiError("");
   };
 
   const validateForm = () => {
@@ -321,18 +326,42 @@ const Login = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validationErrors = validateForm();
-
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
     setErrors({});
-    console.log("Login submitted:", formData);
+    setApiError("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setApiError(data.message || "Login failed. Please try again.");
+        return;
+      }
+
+      router.push("/dashboard");
+    } catch {
+      setApiError("Network error. Please check your connection.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -464,22 +493,27 @@ const Login = () => {
                 </a>
               </div>
 
-              <button type="submit" className="login-submit-btn">
-                Login
+              {apiError && (
+                <span className="login-error-text" style={{ display: "block", marginBottom: "12px", textAlign: "center" }}>
+                  {apiError}
+                </span>
+              )}
+              <button type="submit" className="login-submit-btn" disabled={isLoading}>
+                {isLoading ? "Logging in..." : "Login"}
               </button>
 
               <div className="login-divider">
                 <span className="login-divider-text">OR CONTINUE WITH</span>
               </div>
 
-              <button type="button" className="login-google-btn">
+              <button type="button" disabled title="Google sign-in coming soon" className="login-google-btn opacity-50 cursor-not-allowed">
                 <span className="login-google-icon">G</span>
-                Continue with Google
+                Continue with Google (Coming Soon)
               </button>
 
               <p className="login-signup-text">
                 Don&apos;t have an account?{" "}
-                <a href="/sign-up" className="login-signup-link">
+                <a href="/signup" className="login-signup-link">
                   Sign Up
                 </a>
               </p>

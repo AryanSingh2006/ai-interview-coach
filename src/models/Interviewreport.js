@@ -42,6 +42,17 @@ const InterviewReportSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
+    // Denormalized from InterviewSession at report-creation time
+    interviewType: {
+      type: String,
+      default: "",
+    },
+
+    completedAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,

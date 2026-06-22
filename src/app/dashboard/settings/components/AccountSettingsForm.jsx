@@ -1,9 +1,14 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function AccountSettingsForm({ profile, onSave }) {
-  const [formData, setFormData] = useState({ ...profile });
+  const [formData, setFormData] = useState({ fullName: '', email: '', ...profile });
+
+  // Sync if profile loads after mount
+  useEffect(() => {
+    if (profile) setFormData({ fullName: '', email: '', ...profile });
+  }, [profile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,39 +33,32 @@ export default function AccountSettingsForm({ profile, onSave }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Full Name</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="fullName"
-              value={formData.fullName} 
+              value={formData.fullName}
               onChange={handleChange}
-              className="w-full bg-[#f1f5f9]/60 border border-slate-200 rounded-xl px-4 py-3 text-xs font-medium text-slate-800 focus:outline-none focus:border-blue-500 transition-all" 
+              className="w-full bg-[#f1f5f9]/60 border border-slate-200 rounded-xl px-4 py-3 text-xs font-medium text-slate-800 focus:outline-none focus:border-blue-500 transition-all"
             />
           </div>
           <div className="space-y-1.5">
             <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Email Address</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               name="email"
-              value={formData.email} 
-              onChange={handleChange}
-              className="w-full bg-[#f1f5f9]/60 border border-slate-200 rounded-xl px-4 py-3 text-xs font-medium text-slate-800 focus:outline-none focus:border-blue-500 transition-all" 
+              value={formData.email}
+              disabled
+              title="Email cannot be changed"
+              className="w-full bg-[#f1f5f9]/60 border border-slate-200 rounded-xl px-4 py-3 text-xs font-medium text-slate-400 cursor-not-allowed"
             />
           </div>
         </div>
 
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Professional Title</label>
-          <input 
-            type="text" 
-            name="professionalTitle"
-            value={formData.professionalTitle} 
-            onChange={handleChange}
-            className="w-full bg-[#f1f5f9]/60 border border-slate-200 rounded-xl px-4 py-3 text-xs font-medium text-slate-800 focus:outline-none focus:border-blue-500 transition-all" 
-          />
-        </div>
-
         <div className="pt-2">
-          <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-5 py-3 rounded-xl shadow-sm transition-all transform active:scale-[0.98]">
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-5 py-3 rounded-xl shadow-sm transition-all transform active:scale-[0.98]"
+          >
             Save Changes
           </button>
         </div>

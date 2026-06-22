@@ -8,9 +8,9 @@ export default function Footer() {
           Interview<span className="text-primary">Pro</span>
         </span>
         <nav className="flex items-center gap-6 text-sm text-gray-500">
-          <a href="#" className="hover:text-ink transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-ink transition-colors">Terms</a>
-          <a href="#" className="hover:text-ink transition-colors">Contact</a>
+          <span className="cursor-default opacity-60">Privacy Policy</span>
+          <span className="cursor-default opacity-60">Terms</span>
+          <span className="cursor-default opacity-60">Contact</span>
         </nav>
         <p className="text-sm text-gray-400">&copy; 2024 InterviewPro SaaS. All rights reserved.</p>
       </div>

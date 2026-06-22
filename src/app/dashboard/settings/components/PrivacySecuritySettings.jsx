@@ -19,8 +19,12 @@ export default function PrivacySecuritySettings() {
             <h4 className="text-xs font-bold text-slate-800">Two-Factor Authentication</h4>
             <p className="text-xs text-slate-400 font-normal">Recommended for high profile account security infrastructure configurations.</p>
           </div>
-          <button className="text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors whitespace-nowrap px-2 py-1">
-            Enable
+          <button
+            disabled
+            title="Coming soon"
+            className="text-xs font-bold text-slate-400 cursor-not-allowed whitespace-nowrap px-2 py-1 border border-slate-200 rounded-lg"
+          >
+            Coming Soon
           </button>
         </div>
 
@@ -30,8 +34,12 @@ export default function PrivacySecuritySettings() {
             <h4 className="text-xs font-bold text-slate-800">Delete Workspace</h4>
             <p className="text-xs text-slate-400 font-normal">Permanently remove all configuration records, evaluation metrics, and historical recordings data.</p>
           </div>
-          <button className="text-xs font-bold text-rose-500 hover:text-rose-600 transition-colors whitespace-nowrap px-2 py-1">
-            Manage
+          <button
+            disabled
+            title="Coming soon"
+            className="text-xs font-bold text-slate-400 cursor-not-allowed whitespace-nowrap px-2 py-1 border border-slate-200 rounded-lg"
+          >
+            Coming Soon
           </button>
         </div>
       </div>
