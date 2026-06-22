@@ -1,36 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InterviewPro
 
-## Getting Started
+InterviewPro is an AI-powered interview preparation platform that generates personalized mock interviews from a candidate's resume and job description. It evaluates responses, produces detailed performance reports, tracks progress across interviews, and creates targeted learning plans for continuous improvement.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## System Flow
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Application Workflow
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![Application Workflow](./public/workflow1.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### System Architecture
 
-## Learn More
+![System Architecture](./public/systemArchitecture.png)
 
-To learn more about Next.js, take a look at the following resources:
+### Database Design
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Database Design](./public/db.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+# Application Screens
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Landing Page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Landing Page](./landingPage.png)
+
+## Interview Setup
+
+Resume upload, job description input, company targeting, and interview generation.
+
+![Interview Setup](./upload.png)
+
+## Interview Session
+
+Real-time interview interface with question tracking, answer submission, and progress monitoring.
+
+![Interview Session](./question.png)
+
+## Dashboard
+
+Centralized overview of interview performance, strengths, weaknesses, and recent reports.
+
+![Dashboard](./dashboard.png)
+
+## Profile
+
+Candidate profile with performance metrics, interview history, and skill breakdown.
+
+![Profile](./profile.png)
+
+## Reports Overview
+
+Interview history with filtering and report access.
+
+![Reports](./report.png)
+
+## Detailed Interview Report
+
+Performance summary, score breakdown, and evaluation metrics.
+
+![Detailed Report](./report2.png)
+
+## Strengths, Weaknesses & Recommendations
+
+Detailed analysis and personalized improvement roadmap.
+
+![Recommendations](./report3.png)
+
+---
+
+# Features
+
+### Interview Generation
+- Resume-based interview generation
+- Job description analysis
+- Technical, Behavioral, and Mixed interview modes
+- Company-specific interview customization
+
+### AI Evaluation
+- Response quality assessment
+- Technical depth analysis
+- Communication evaluation
+- Problem-solving assessment
+- Follow-up question generation
+
+### Reporting & Analytics
+- Detailed interview reports
+- Strength and weakness identification
+- Historical performance tracking
+- Skill-wise score breakdown
+- Progress monitoring
+
+### Learning System
+- Personalized learning plans
+- Weakness-focused recommendations
+- Interview memory system
+- Adaptive future interview generation
+
+---
+
+# Tech Stack
+
+| Category | Technologies |
+|-----------|-------------|
+| Frontend | Next.js, React, Tailwind CSS |
+| Backend | Next.js API Routes |
+| Database | MongoDB, Mongoose |
+| Authentication | JWT, HTTP-only Cookies |
+| Storage | Cloudinary |
+| AI Layer | OpenAI / LLM Integration |
+| Orchestration | LangGraph, LangChain |
+| Deployment | Vercel |
+
+---
+
+# Core Workflow
+
+1. User authentication
+2. Resume upload and parsing
+3. Candidate profile extraction
+4. Interview generation
+5. Question-answer evaluation loop
+6. Report generation
+7. Memory update and learning plan creation
+8. Dashboard and progress tracking
+
+---
+
+# Future Enhancements
+
+- Voice interviews
+- Coding interview environment
+- System design interviews
+- Advanced company-specific interview pipelines
+- Multi-model AI evaluation
+- Real-time interviewer simulation
+
+---
+
+## License
+
+This project is intended for educational and portfolio purposes.
