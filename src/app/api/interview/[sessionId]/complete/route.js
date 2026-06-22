@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import dbConnect from "@/lib/dbConnect";
-import { getAuthUser } from "@/lib/auth";
+import { connectDB } from "@/lib/dbConnect";
+import { getCurrentUser } from "@/lib/auth";
 import Interviewsession from "@/models/Interviewsession";
 import Turn from "@/models/Turn";
 import Evaluation from "@/models/Evaluation";
 import Interviewreport from "@/models/Interviewreport";
-import { generateInterviewReport } from "@/lib/generateInterviewReport";
+import { generateInterviewReport } from "@/lib/Generateinterviewreport";
 import Candidateprofile from "@/models/Candidateprofile";
 
 /**
@@ -18,14 +18,14 @@ import Candidateprofile from "@/models/Candidateprofile";
  */
 export async function POST(request, { params }) {
   try {
-    await dbConnect();
+    await connectDB();
 
-    const user = await getAuthUser();
+    const user = await getCurrentUser(request);
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { sessionId } = params;
+    const { sessionId } = await params;
 
     if (!mongoose.isValidObjectId(sessionId)) {
       return NextResponse.json({ error: "Invalid session ID" }, { status: 400 });
@@ -50,7 +50,7 @@ export async function POST(request, { params }) {
       );
     }
 
-    if (session.userId.toString() !== user.userId.toString()) {
+    if (session.userId.toString() !== user._id.toString()) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -112,6 +112,8 @@ export async function POST(request, { params }) {
       summary: reportResult.summary,
       recommendedFollowUpTopics:
         reportResult.recommendedFollowUpTopics || [],
+      interviewType: session.interviewType,
+      completedAt: session.completedAt || new Date(),
     });
 
     session.status = "completed";

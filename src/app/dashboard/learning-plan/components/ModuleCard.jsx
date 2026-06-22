@@ -75,12 +75,9 @@ export default function ModuleCard({ item }) {
         {/* Action Triggers Grid for Active Component */}
         {isCurrent && (
           <div className="pt-3 flex flex-wrap items-center gap-2.5">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-md shadow-blue-500/10 transition transform active:scale-[0.98]">
-              Resume Lesson
-            </button>
-            <button className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-600 font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">
-              View Exercises
-            </button>
+            <span className="text-[10px] font-semibold text-blue-400 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg">
+              In Progress — lessons coming soon
+            </span>
           </div>
         )}
       </div>

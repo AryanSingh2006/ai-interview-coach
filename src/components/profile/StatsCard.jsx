@@ -1,16 +1,16 @@
 import React from 'react'
 import { MessageSquare, Star, TrendingUp } from 'lucide-react'
 
-const STATS = [
-  { icon: MessageSquare, label: 'Total Interviews', value: '15', suffix: '' },
-  { icon: Star, label: 'Best Score', value: '92', suffix: '%' },
-  { icon: TrendingUp, label: 'Average Score', value: '81', suffix: '%' },
-]
+export default function StatsCard({ totalInterviews, bestScore, avgScore }) {
+  const stats = [
+    { icon: MessageSquare, label: 'Total Interviews', value: totalInterviews ?? '—', suffix: '' },
+    { icon: Star, label: 'Best Score', value: bestScore ?? '—', suffix: bestScore != null ? '%' : '' },
+    { icon: TrendingUp, label: 'Average Score', value: avgScore ?? '—', suffix: avgScore != null ? '%' : '' },
+  ]
 
-export default function StatsCard() {
   return (
     <div className="grid sm:grid-cols-3 gap-5">
-      {STATS.map(({ icon: Icon, label, value, suffix }) => (
+      {stats.map(({ icon: Icon, label, value, suffix }) => (
         <div
           key={label}
           className="bg-white border border-border rounded-2xl p-5 flex items-center gap-4 shadow-card hover:shadow-cardHover hover:-translate-y-0.5 transition-all duration-200"

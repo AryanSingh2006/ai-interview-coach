@@ -57,15 +57,12 @@ export async function POST(request, { params }) {
       );
     }
 
-    console.log("Looking for pending turn...");
 
     // The most recent turn with an empty answer is the one currently "open"
     const currentTurn = await Turn.findOne({
       sessionId: session._id,
       answer: "",
     }).sort({ index: -1 });
-
-    console.log("Current Turn:", currentTurn);
 
     if (!currentTurn) {
       return NextResponse.json(
@@ -97,7 +94,6 @@ export async function POST(request, { params }) {
       (t) => t._id.toString() !== currentTurn._id.toString()
     );
 
-    console.log("About to evaluate answer");
     // 4. Evaluate the answer with Groq, using the same candidate-profile +
     //    history context questionGenerator.js uses for question generation.
     const evaluationResult = await evaluateAnswer({
@@ -111,7 +107,6 @@ export async function POST(request, { params }) {
       previousEvaluations: priorEvaluations,
     });
 
-    console.log("Evaluation Result:", evaluationResult);
     // 5. Persist the evaluation (one per turn, enforced by a unique index)
     const evaluation = await Evaluation.create({
       sessionId: session._id,
@@ -147,7 +142,6 @@ export async function POST(request, { params }) {
       });
     }
 
-    console.log("Generating next question...");
 
     // 8. Generate the next, difficulty-adjusted question
     const nextQuestionResult = await generateNextQuestion({
@@ -158,7 +152,6 @@ export async function POST(request, { params }) {
       evaluations: allEvaluations,
     });
 
-    console.log("Creating next turn...");
 
     // 9. Create the next turn
     const nextIndex = currentTurn.index + 1;

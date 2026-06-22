@@ -53,7 +53,7 @@ const ALL_QUESTION_TYPES = [
 ];
 
 const QUESTION_TYPES_BY_INTERVIEW_TYPE = {
-  technical: ["technical", "coding"],
+  technical: ["technical", "coding", "system_design"],
   behavioral: ["behavioral", "situational", "hr"],
   system_design: ["system_design"],
   mixed: ALL_QUESTION_TYPES,

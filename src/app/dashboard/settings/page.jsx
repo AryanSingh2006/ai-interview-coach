@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { initialSettingsData } from './data/settingsData';
 import AccountSettingsForm from './components/AccountSettingsForm';
 import NotificationPreferences from './components/NotificationPreferences';
 import AppearanceSelector from './components/AppearanceSelector';
@@ -11,15 +10,46 @@ export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('account');
   const [settings, setSettings] = useState(null);
   const [theme, setTheme] = useState('light');
+  const [saveStatus, setSaveStatus] = useState(''); // 'success' | 'error' | ''
 
   useEffect(() => {
-    // Mimicking client-side asynchronous dynamic data pull hook
-    setSettings(initialSettingsData);
+    async function loadUser() {
+      try {
+        const res = await fetch('/api/auth/me');
+        if (res.ok) {
+          const data = await res.json();
+          // Map API 'name' → 'fullName' so AccountSettingsForm pre-populates correctly
+          setSettings({
+            profile: { fullName: data.user.name, email: data.user.email },
+            notifications: [],
+          });
+        }
+      } catch {
+        // silent — form stays empty
+      }
+    }
+    loadUser();
   }, []);
 
-  const handleProfileSave = (updatedProfile) => {
-    setSettings(prev => ({ ...prev, profile: updatedProfile }));
-    alert("Profile configurations updated successfully!");
+  const handleProfileSave = async (updatedProfile) => {
+    setSaveStatus('');
+    try {
+      const res = await fetch('/api/auth/me', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: updatedProfile.fullName }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSettings((prev) => ({ ...prev, profile: { fullName: data.user.name, email: data.user.email } }));
+        setSaveStatus('success');
+      } else {
+        setSaveStatus('error');
+      }
+    } catch {
+      setSaveStatus('error');
+    }
+    setTimeout(() => setSaveStatus(''), 3000);
   };
 
   const handleNotificationToggle = (id) => {
@@ -49,6 +79,12 @@ export default function SettingsPage() {
       <div className="max-w-5xl mx-auto space-y-2 mb-8">
         <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Settings</h1>
         <p className="text-xs text-slate-400 font-medium">Manage your account preferences and application configurations.</p>
+        {saveStatus === 'success' && (
+          <p className="text-sm text-emerald-600 font-medium">Profile updated successfully.</p>
+        )}
+        {saveStatus === 'error' && (
+          <p className="text-sm text-red-500 font-medium">Failed to save. Please try again.</p>
+        )}
       </div>
 
       {/* Primary Layout Splitting Architecture Grid */}
