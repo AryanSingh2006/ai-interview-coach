@@ -94,7 +94,7 @@ export default function ResumeUploadPage() {
       const res = await fetch("/api/resume/upload", { method: "POST", body: formData });
       const data = await res.json();
       if (!res.ok) { setUploadError(data.message || "Resume upload failed."); return; }
-      setUploadedResume({ resumeId: data.resume._id, fileName: selectedFile.name });
+      setUploadedResume({ resumeId: data.resumeId, fileName: selectedFile.name });
     } catch {
       setUploadError("Network error. Please check your connection.");
     } finally {
